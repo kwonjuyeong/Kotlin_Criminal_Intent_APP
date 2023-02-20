@@ -8,7 +8,6 @@ class CriminalIntent : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         //fragment 넘겨주는 함수
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
 

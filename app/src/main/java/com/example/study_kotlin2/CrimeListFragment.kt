@@ -15,13 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 private const val TAG = "CrimeListFragment"
+
 class CrimeListFragment : Fragment() {
 
     private lateinit var crimeRecyclerView : RecyclerView
-    //private var adapter : CrimeAdapter ?= null
     private var adapter : CrimeAdapter ?= CrimeAdapter(emptyList())
 
-    private val crimeViewModel : CrimeListViewModel by lazy {
+    private val crimeListViewModel : CrimeListViewModel by lazy {
         ViewModelProvider(this)[CrimeListViewModel::class.java]
     }
 
@@ -34,14 +34,12 @@ class CrimeListFragment : Fragment() {
         crimeRecyclerView = view.findViewById(R.id.crime_recycler) as RecyclerView
         crimeRecyclerView.layoutManager = LinearLayoutManager(context)
         crimeRecyclerView.adapter = adapter
-        //updateUI()
-
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        crimeViewModel.crimeListLiveData.observe(
+        crimeListViewModel.crimeListLiveData.observe(
             viewLifecycleOwner,
             Observer { crimes ->
                 crimes?.let {
@@ -51,16 +49,17 @@ class CrimeListFragment : Fragment() {
             })
     }
 
-    private fun updateUI(crimes: List<Crime>){
+    private fun updateUI(crimes : List<Crime>){
         adapter = CrimeAdapter(crimes)
         crimeRecyclerView.adapter = adapter
     }
 
     private inner class CrimeHolder(view:View): RecyclerView.ViewHolder(view), View.OnClickListener{
         private lateinit var crime : Crime
-        private val titleText : TextView = itemView.findViewById(R.id.crime_title)
-        private val dateText : TextView = itemView.findViewById(R.id.crime_date)
+        val titleText : TextView = itemView.findViewById(R.id.crime_title)
+        val dateText : TextView = itemView.findViewById(R.id.crime_date)
         private val solvedImageView : ImageView = itemView.findViewById(R.id.crime_solved)
+
         init {
             itemView.setOnClickListener(this)
         }
@@ -76,11 +75,10 @@ class CrimeListFragment : Fragment() {
             }
         }
 
-        override fun onClick(p0: View?) {
+        override fun onClick(v: View?) {
             Toast.makeText(context, "${crime.title} pressed!", Toast.LENGTH_SHORT).show()
         }
     }
-
 
     //Adapter는 RecyclerView와 List<Crime> 사이에 위치한다.
     private inner class CrimeAdapter(var crimes : List<Crime>): RecyclerView.Adapter<CrimeHolder>() {
@@ -88,13 +86,16 @@ class CrimeListFragment : Fragment() {
             val view = layoutInflater.inflate(R.layout.list_item_crime, parent, false)
             return CrimeHolder(view)
         }
-        override fun onBindViewHolder(holder: CrimeHolder, position: Int) {
-            val crime = crimes[position]
-            holder.bind(crime)
-        }
 
         override fun getItemCount() = crimes.size
+
+        override fun onBindViewHolder(holder: CrimeHolder, position: Int) {
+            val crime = crimes[position]
+
+            holder.bind(crime)
+        }
     }
+
 
     companion object{
         fun newInstance():CrimeListFragment{

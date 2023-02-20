@@ -10,6 +10,6 @@ import com.example.study_kotlin2.Crime
 @TypeConverters(CrimeTypeConverters::class)
 abstract class CrimeDatabase : RoomDatabase(){
 
-    abstract fun crimeDao() : CrimeDAO
+    abstract fun crimeDao() : CrimeDao
 
 }
