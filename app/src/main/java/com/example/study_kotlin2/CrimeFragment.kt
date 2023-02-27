@@ -10,15 +10,17 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import java.util.UUID
 import androidx.lifecycle.Observer
+import java.util.*
 
 private const val TAG = "CrimeFragment"
 private const val ARG_CRIME_ID = "crime_id"
-
-class CrimeFragment : Fragment() {
+private const val DIALOG_DATE = "DialogDate"
+private const val REQUEST_CODE = 0
+class CrimeFragment : Fragment() , DatePickerFragment.Callbacks{
 
     private lateinit var crime: Crime
     private lateinit var titleField: EditText
@@ -27,6 +29,12 @@ class CrimeFragment : Fragment() {
 
     private val crimeDetailViewModel: CrimeDetailViewModel by lazy {
         ViewModelProvider(this).get(CrimeDetailViewModel::class.java)
+    }
+
+    //Callback을 통해 DatePickerFragment에 데이터를 전달한다.
+    override fun onDateSelected(date: Date) {
+        crime.date = date
+        updateUI()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,17 +55,15 @@ class CrimeFragment : Fragment() {
         titleField = view.findViewById(R.id.crime_title) as EditText
         dateButton = view.findViewById(R.id.crime_date) as Button
         solvedCheckBox = view.findViewById(R.id.crime_solved) as CheckBox
-        dateButton.apply {
-            text = crime.date.toString()
-            isEnabled = false
-        }
+
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         crimeDetailViewModel.crimeLiveData.observe(
-            viewLifecycleOwner, Observer{crime ->
+            viewLifecycleOwner,
+            Observer{crime ->
                 crime?.let{
                     this.crime = crime
                     updateUI()
@@ -83,6 +89,15 @@ class CrimeFragment : Fragment() {
         solvedCheckBox.apply {
             setOnCheckedChangeListener { _, isChecked ->
                 crime.isSolved = isChecked
+            }
+        }
+        dateButton.setOnClickListener {
+            DatePickerFragment.newInstance(crime.date).apply {
+
+                setTargetFragment(this@CrimeFragment, REQUEST_CODE)
+
+                //날짜 클릭 시 CrimeFragment를 FragmentManager를 통해 화면에 Dialog를 띄어준다.
+                show(this@CrimeFragment.parentFragmentManager, DIALOG_DATE)
             }
         }
     }
