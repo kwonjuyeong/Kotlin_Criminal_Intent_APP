@@ -1,7 +1,7 @@
 package com.example.study_kotlin2.ChapterMemo;
 
 /*
-Chapter 13
+Chapter 14
 앱 바(App bar)
 앱 바는 사용자가 수행할 수 있는 액션과 화면 간을 이동할 수 있는 메커니즘을 제공한다.
 더불어 디자인의 일관성도 제공한다.

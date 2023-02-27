@@ -28,6 +28,4 @@ RecyclerView의 역할
 재사용한다.
 - 이런 이유로 onCreateViewHolder(ViewGroup, Int) 함수는 onBindViewHolder(ViewHolder, Int) 보다 호출이 덜 된다.
 - 일단 충분한 ViewHolder가 생성되면 RecyclerView는 onCreateViewHolder의 호출을 중단하고 기존의 ViewHolder를 재활용해 onBindViewHolder에 전달함으로써 시간과 메모리를 절약한다.
-
-
  */
