@@ -2,7 +2,7 @@ package com.example.study_kotlin2.ChapterMemo;
 
 /*
 Chapter 13
-Dialog
+Dialog(Date Picker 사용)
 대화상자(Dialog)는 사용자의 주의를 끌고 입력을 받는 데 사용되며 사용자의 선택을 받거나 중요한 정보를 보여줄 때도 유용하다.
 
 Model                    Crime(title, id, date, isSolved)
