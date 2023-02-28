@@ -95,7 +95,7 @@ class CrimeFragment : Fragment() , DatePickerFragment.Callbacks{
                 crime?.let{
                     this.crime = crime
                     photoFile = crimeDetailViewModel.getPhotoFile(crime)
-                    photoUri = FileProvider.getUriForFile(requireContext(), "com.example.study_kotlin2.fileprovider", photoFile)
+                    photoUri = FileProvider.getUriForFile(requireContext(), "com.example.study_kotlin2", photoFile)
                     updateUI()
                 }
             }
