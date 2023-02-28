@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.study_kotlin2.database.CrimeRepository
+import java.io.File
 import java.util.UUID
 
 class CrimeDetailViewModel : ViewModel() {
@@ -22,4 +23,7 @@ class CrimeDetailViewModel : ViewModel() {
         crimeRepository.updateCrime(crime)
     }
 
+    fun getPhotoFile(crime: Crime) : File {
+        return crimeRepository.getPhotoFile(crime)
+    }
 }

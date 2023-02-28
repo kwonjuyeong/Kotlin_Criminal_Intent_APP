@@ -10,7 +10,11 @@ data class Crime(
     var title : String = "",
     var date : Date = Date(),
     var isSolved : Boolean = false,
-    var suspect : String = ""
-)
+    var suspect : String = "",
+
+){
+    val photoFileName
+    get() = "IMG_$id.jpg"
+}
 
 //UUID는 안드로이드 프레임 워크에 포함된 유틸리티 클래스이다.
