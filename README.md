@@ -1,6 +1,5 @@
 # Study_Kotlin2
-실무에서 바로 적용하는 안드로이드 프로그래밍 책 스터디 8~19장
-CriminalIntent App
+안드로이드 책 스터디 8~19장(CriminalIntent APP)
 
 UI 프래그먼트와 프래그먼트 매니저<br/>
 RecyclerView<br/>
